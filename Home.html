@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>POS</title>
+	<link rel="stylesheet" type="text/css" href="styleRest.css">
+	<link rel="stylesheet" type="text/css" href="Style.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script src="Scripts.js"></script>
+</head>
+<body>
+	<div id="Container" ng-app="posUI" ng-controller="OrderFormController">
+
+
+
+		<div class="OrderList">
+			<ul>
+				<li ng-repeat="service in services" ng-class="{active:service.active}">
+					<p>{{service.quantity}} </p>
+					<p>{{service.name}} </p>
+
+					<input class="serviceRemove"  type="button" ng-click="RemoveProdcut($index)" value="X"/>
+					<span>{{service.price * service.quantity  | currency}}</span> 
+				</li>
+			</ul>
+
+			<div class="total" ng-show="ShowTotal">
+				Total: <input class="serviceRemove"  type="button" ng-click="RemoveAllProdcut()" value="X"/> <span>{{total() | currency}}</span>
+			</div>
+		</div>
+
+		<div class="ProductsCategory">
+			<input   type="button" ng-repeat="cat in Category" ng-click="setCategory(cat)" value="{{cat}}"/>
+		</div>
+
+		<div class="Products" >
+			<div class="ProductItem"  ng-repeat="Product in Products | categoryFilter:SelectedCategory" ng-click="AddToCard(Product)">
+				<p class="ProductItemName">{{Product.name}}</p>
+				<p class="ProductPrice">{{Product.price | currency}}</p>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
+
+
